@@ -1,5 +1,4 @@
 {% load static %}
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,13 +14,13 @@
               <div class="collapse navbar-collapse" id="navbarColor01">
                 <ul class="navbar-nav me-auto">
                   <li class="nav-item">
-                    <a class="nav-link" href="{% url 'home' %}">Home
+                    <a class="nav-link active" href="{% url 'home' %}">Home
                       <span class="visually-hidden">(current)</span>
                     </a>
                   </li>
                   {% if not user.is_staff%}
                   <li class="nav-item">
-                    <a class="nav-link active" href="{% url 'course_list' %}">Course List</a>
+                    <a class="nav-link" href="{% url 'course_list' %}">Course List</a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" href="{% url 'my_quota_requests' %}">My Request</a>
@@ -89,16 +88,15 @@
                                 <tbody>
                                     {% for course in courses %}
                                     <tr>
-                                        <td>{{course.code}}<td>
-                                        <td>{{course.name}}<td>
-                                        <td>{{course.semester}}<td>
-                                        <td>{{course.year}}<td>
-                                        <td>{{course.seat}}<td>
-                                        <td><a href="{% url 'request_quota' course.code %}">Request Quota</a><td>
+                                        <td>{{course.code}}</td>
+                                        <td>{{course.name}}</td>
+                                        <td>{{course.semester}}</td>
+                                        <td>{{course.year}}</td>
+                                        <td>{{course.seats}}</td>
+                                        <td><a href="{% url 'request_quota' course.code %}">Request Quota</a></td>
                                     </tr>
                                     {% endfor %}
                                 </tbody>
-                             
                               </table>
                         </div>
                       </p>

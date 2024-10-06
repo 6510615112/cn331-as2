@@ -29,6 +29,7 @@
                 <a class="nav-link" href="{% url 'my_enrolled_courses' %}">My Course</a>
               </li>
               {% endif %}
+
               {% if user.is_staff %}
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'quota_requests_list' %}">Quota Requests</a>
@@ -44,7 +45,10 @@
                     <a class="nav-link">Hello ({{ user.first_name }} {{ user.last_name }})</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link"href="logout">Logout</a>
+                    <form method="post" action="{% url 'logout' %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-primary">Logout</button>
+                    </form>
                 </li>
             </ul>
             {%else%}
