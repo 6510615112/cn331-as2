@@ -5,11 +5,12 @@ from django.contrib.auth import login, authenticate
 from .forms import UserRegistrationForm
 from .forms import AuthenticationForm
 from django.contrib.admin.views.decorators import staff_member_required
+from django.shortcuts import render, redirect, get_object_or_404
 
 @staff_member_required
-def course_quota_requests(request, course_id):
-    course = Course.objects.get(id=course_id)
-    requests = QuotaRequest.objects.filter(course=course)
+def course_quota_requests(request, course_code):
+    course = get_object_or_404(Course, code=course_code)
+    requests = QuotaRequest.objects.filter(course=course, is_approved=True)
     return render(request, 'courses/course_quota_requests.html', {'course': course, 'requests': requests})
 
 def is_admin(user):
@@ -50,18 +51,18 @@ def course_list(request):
     return render(request, 'courses/course_list.html', context)
 
 @login_required
-def request_quota(request, course_id):
-    course = Course.objects.get(id=course_id)
+def request_quota(request, course_code):
+    course = get_object_or_404(Course, code=course_code)
     existing_request = QuotaRequest.objects.filter(student=request.user, course=course).first()
     if not existing_request and course.seats > QuotaRequest.objects.filter(course=course).count():
         QuotaRequest.objects.create(student=request.user, course=course)
     return redirect('course_list')
 
-@login_required
-def course_requests(request, course_id):
-    course = Course.objects.get(id=course_id)
-    requests = QuotaRequest.objects.filter(course=course)
-    return render(request, 'courses/course_requests.html', {'course': course, 'requests': requests})
+# @login_required
+# def course_requests(request, course_id):
+#     course = Course.objects.get(id=course_id)
+#     requests = QuotaRequest.objects.filter(course=course)
+#     return render(request, 'courses/course_requests.html', {'course': course, 'requests': requests})
 
 def register(request):
     if request.method == 'POST':
@@ -103,6 +104,18 @@ def cancel_quota_request(request, request_id):
         course.save()
         quota_request.delete()
     return redirect('my_quota_requests')
+
+@staff_member_required
+def admin_dashboard(request):
+    courses = Course.objects.all()
+    course_data = []
+    for course in courses:
+        student_count = QuotaRequest.objects.filter(course=course, is_approved=True).count()
+        course_data.append({
+            'course': course,
+            'student_count': student_count
+        })
+    return render(request, 'courses/admin_dashboard.html', {'course_data': course_data})
 
 @login_required
 def my_enrolled_courses(request):

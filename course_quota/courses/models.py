@@ -20,7 +20,6 @@ class QuotaRequest(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
     requested_at = models.DateTimeField(auto_now_add=True)
     is_approved = models.BooleanField(default=False)
-    is_notified = models.BooleanField(default=False)
 
 
     def __str__(self):
