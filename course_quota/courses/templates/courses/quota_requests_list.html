@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Quota Requests</title>
+    <title> Quota Request </title>
     <link href="{% static 'bootstrap.min.css' %}" rel ="stylesheet">
     <body>
         <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
@@ -64,16 +64,14 @@
             </div>
           </nav>
     <h1></h1>
-    <h1>Quota Requests</h1>
     <div class="container.fluid">
-        <h3 class="m-4"> All Course Requests </h3>
+        <h3 class="m-4"> Quota Requests </h3>
         <div class='row'>
             <div class="col-12">
                 {% if request %}
                 <div class="card text-white bg-primary ms-4 me-4 mb-4">
                     <div class="card-header">Request</div>
                     <div class="card-body">
-                      <h4 class="card-title">Primary card title</h4>
                       <p class="card-text">
                         <div class="table-responsive">
                             <table class="table table-hover">
@@ -82,6 +80,7 @@
                                     <th scope="col">Course Code</th>
                                     <th scope="col">Course Name</th>
                                     <th scope="col">Student ID</th>
+                                    <th scope="col">Name</th>
                                     <th scope="col">Approve</th>
                                   </tr>
                                 </thead>
@@ -91,6 +90,7 @@
                                         <td>{{request.course.code}}</td>
                                         <td>{{request.course.name}}</td>
                                         <td>{{request.student.username}}</td>
+                                        <td>{{request.student.first_name}} {{request.student.last_name}}</td>
                                         <td><a href="{% url 'approve_quota_request' request.id %}">Approve</a></td>
                                     </tr>
                                     {% endfor %}
