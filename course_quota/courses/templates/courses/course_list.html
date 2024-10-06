@@ -1,0 +1,20 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Course List</title>
+    <link href="{% static 'css/bootstrap.min.css' %}" rel ="stylesheet">
+</head>
+<body>
+    <h1></h1>
+    <h1>Available Courses</h1>
+    <p>Welcome, {{ user.first_name }} {{user.last_name}}!</p>
+    <ul>
+        {% for course in courses %}
+            <li>{{course.code}} {{ course.name }} {{course.seats}} Seats - <a href="{% url 'request_quota' course.id %}">Request Quota</a></li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'home' %}">Home</a>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
