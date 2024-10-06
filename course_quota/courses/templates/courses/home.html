@@ -3,28 +3,64 @@
 <html>
 <head>
     <title>Home</title>
-    <link href="{% static 'css/bootstrap.min.css' %}" rel ="stylesheet">
-</head>
+    <link href="{% static 'bootstrap.min.css' %}" rel ="stylesheet">
 <body>
-    <h1>Welcome to the Home Page</h1>
-    {% if not user.is_staff %}
-    <p>Click the link below to view the course list:</p>
-    <a href="{% url 'course_list' %}">Go to Course List</a>
-    <br><a href="{% url 'my_quota_requests' %}">My requests</a><br>
-    <a href="{% url 'my_enrolled_courses' %}">My courses</a>
-    {% endif %}
-    {% if user.is_staff %}
-    <br><a href= "{% url 'quota_requests_list' %}">Quota Requests</a></br>
-    <a href= "{% url 'admin_dashboard' %}">Admin Dashboard</a>
-    {% endif %}
-    {% if user.is_authenticated %}
-        <p>Welcome, {{ user.username }}!</p>
-        <form action="{% url 'logout' %}" method="post">
-            {% csrf_token %} 
-            <button type="submit">Logout</button>
-        </form>
-    {% else %}
-        <a href="{% url 'login' %}">Login</a>
-    {% endif %}
+    <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">Course Quota</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarColor01">
+            <ul class="navbar-nav me-auto">
+              <li class="nav-item">
+                <a class="nav-link active" href="{% url 'home' %}">Home
+                  <span class="visually-hidden">(current)</span>
+                </a>
+              </li>
+              {% if not user.is_staff%}
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'course_list' %}">Course List</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'my_quota_requests' %}">My Request</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'my_enrolled_courses' %}">My Course</a>
+              </li>
+              {% endif %}
+              {% if user.is_staff %}
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'quota_requests_list' %}">Quota Requests</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'admin_dashboard' %}">Admin Dashboard</a>
+              </li>
+            {% endif %}
+            </ul>
+            {% if user.is_authenticated%}
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link">Hello ({{ user.first_name }} {{ user.last_name }})</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link"href="logout">Logout</a>
+                </li>
+            </ul>
+            {%else%}
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="login">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link"href="register">Signup</a>
+                </li>
+            </ul>
+            {% endif%}
+          </div>
+        </div>
+      </nav>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+</head>
 </html>

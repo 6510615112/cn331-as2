@@ -13,7 +13,7 @@ class Course(models.Model):
     is_open = models.BooleanField(default=True)
 
     def __str__(self):
-        return self.name
+        return f'Course: {self.code} {self.name}'
 
 class QuotaRequest(models.Model):
     student = models.ForeignKey(User, on_delete=models.CASCADE)
