@@ -1,9 +1,9 @@
 # CN331-AS2
 
 ## สมาชิกกลุ่ม
--ธีรภัทร โพธิ์ศรี 6510615112
--สุธีธร กาวิเนตร 6510615336 
-https://drive.google.com/file/d/1CcAmuQ2XotpPm1P2UcNkBzRQILVJC51x/view?usp=drive_link คลิปอธิบายการทำงาน
+-ธีรภัทร โพธิ์ศรี 6510615112  
+-สุธีธร กาวิเนตร 6510615336  
+https://drive.google.com/file/d/1CcAmuQ2XotpPm1P2UcNkBzRQILVJC51x/view?usp=drive_link คลิปอธิบายการทำงาน  
 
 ## ความสามารถของระบบ 
 1.**Admin**
@@ -16,4 +16,4 @@ https://drive.google.com/file/d/1CcAmuQ2XotpPm1P2UcNkBzRQILVJC51x/view?usp=drive
 - Students สามารถขอโควต้าในรายวิชา ที่มีทั่นั่งเหลืออยู่ได้ หลังจากกดขอแล้ว จะกดขอซ้ำได้ แต่ทาง Admin จะได้รับแค่คำขอเดียว 
 - Students สามารถกดยกเลิก ในระหว่างที่รอคำตอบรับรายวิชาจาก Admin ได้ 
 - Students สามารถยกเลิก วิชาที่ได้รับโควต้าแล้ว หลังจากยกเลิก ที่นั่งในรายวิชานั้นจะเพิ่มขึ้น 
-- Admin สามารถกดยอมรับโควต้าของ Student ที่ขอเข้าในรายวิชานั้นได้ -Admin สามารถดูรายชื่อ Student ในรายวิชานั้นๆ ได้
+
