@@ -100,10 +100,14 @@ def cancel_quota_request(request, request_id):
     quota_request = QuotaRequest.objects.get(id=request_id)
     if quota_request.student == request.user:
         course = quota_request.course
-        course.seats += 1
-        course.save()
-        quota_request.delete()
-    return redirect('my_quota_requests')
+        if quota_request.is_approved:  # Check if the request is approved
+            course.seats += 1
+            course.save()
+            quota_request.delete()
+            return redirect('my_enrolled_courses')  # Redirect to enrolled courses if approved
+        else:
+            quota_request.delete()
+            return redirect('my_quota_requests')  # Redirect to quota requests if not approved
 
 @staff_member_required
 def admin_dashboard(request):
