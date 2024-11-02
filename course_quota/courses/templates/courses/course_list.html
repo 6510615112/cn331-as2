@@ -23,9 +23,6 @@
                     <a class="nav-link active" href="{% url 'course_list' %}">Course List</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="{% url 'my_quota_requests' %}">My Request</a>
-                  </li>
-                  <li class="nav-item">
                     <a class="nav-link" href="{% url 'my_enrolled_courses' %}">My Course</a>
                   </li>
                   {% endif %}
@@ -93,7 +90,23 @@
                                         <td>{{course.semester}}</td>
                                         <td>{{course.year}}</td>
                                         <td>{{course.seats}}</td>
-                                        <td><a href="{% url 'request_quota' course.code %}">Request Quota</a></td>
+                                        <td>
+                                          {% if course.quota_requested %}
+                                            {% if course.quota_approved %}
+                                                <button type="button" class="btn btn-success" disabled>Approved</button>
+                                            {% else %}
+                                          <form method="post" action="{% url 'cancel_quota_request' course.code %}">
+                                              {% csrf_token %}
+                                              <button type="submit" class="btn btn-warning ">Cancel Request</button>
+                                          </form>
+                                            {% endif%}
+                                          {% else %}
+                                          <form method="post" action="{% url 'request_quota' course.code %}">
+                                              {% csrf_token %}
+                                              <button type="submit" class="btn btn-primary ">Request Quota</a></button>
+                                          </form>
+                                          {% endif %}
+                                        </td>
                                     </tr>
                                     {% endfor %}
                                 </tbody>
